@@ -144,7 +144,7 @@ svg {
     color: black;
 }
 
-.cat1 { background-color: rgb(247, 247, 148); }
-.cat2 { background-color: rgb(232, 246, 148); }
-.cat3 { background-color: rgb(244, 171, 119); }
-.cat4 { background-color: rgb(202, 82,  106); }
+.cat4 { background-color: rgb(247, 247, 148); }
+.cat3 { background-color: rgb(232, 246, 148); }
+.cat2 { background-color: rgb(244, 171, 119); }
+.cat1 { background-color: rgb(202, 82,  106); }
