@@ -1,9 +1,22 @@
+/*
+
+	A small little hack to selfishly look at some 
+	wonderful work by WNYC from a different angle.
+
+	Original:
+	http://project.wnyc.org/flooding-sandy-new/index.html
+
+	Thanks to WNYC for not throwing a fit at me doing this.
+
+	- Sha
+
+*/
 var po = org.polymaps;
-var moving = false;
 var predictedMap, actualMap;
 
 // create an svg element
 var createMap = function(id, url, clipId) {
+	// a lot of silly dom juggling here
 	var container = document.getElementById(id),
 		svg = po.svg("svg"),
 		group = po.svg("g"),
@@ -43,7 +56,7 @@ var createMap = function(id, url, clipId) {
 		})
 		.add(po.interact());
 
-
+	// acrobatic whitespace or parentheses clusterfuck, take your pick
 	map.add(po.image()
 		.url(
 			po.url(url)
@@ -57,6 +70,7 @@ var createMap = function(id, url, clipId) {
 	return map;
 };
 
+// jquery sucks at svg or something
 var scrubMap = function(position) {
 	var totalWidth = $(window).width();
 
@@ -69,8 +83,10 @@ var scrubMap = function(position) {
 };
 
 // glue two maps together
+var moving = false;
 var mapGlue = function(a, b) {
 	return function() {
+		// don't get caught in a loop
 		if (moving) {
 			return;
 		}
@@ -92,6 +108,7 @@ $(function() {
 	var predictedTileURL = "http://{S}.tiles.mapbox.com/v3/jkeefe.map-dg0rv3jh,jkeefe.map-bz4e2who/{Z}/{X}/{Y}.png";
 	var actualTileURL = "http://{S}.tiles.mapbox.com/v3/jkeefe.post-sandy-flooding,jkeefe.map-bz4e2who/{Z}/{X}/{Y}.png";
 
+	// make our maps
 	predictedMap = createMap("map-prediction", predictedTileURL, "left-clip");
 	actualMap = createMap("map-actual", actualTileURL, "right-clip");
 
@@ -99,12 +116,14 @@ $(function() {
 	actualMap.on("move", mapGlue(actualMap, predictedMap));
 	predictedMap.on("move", mapGlue(predictedMap, actualMap));
 
+	// polymaps hash for lat lon zoom rememory
 	actualMap.add(po.hash());
 
-	var scrubbing = false,
-		windowWidth = $(window).width(),
+	// keep track of window width for when it changes
+	var windowWidth = $(window).width(),
 		current = windowWidth / 2;
 
+	// move the scrubber
 	$("#scrubber").draggable({ 
 		axis: 'x',
 		drag: function(e) {
@@ -113,15 +132,17 @@ $(function() {
 		} 
 	});
 
+	// update on resize
 	$(window).resize(function(e) {
-		// update position
 		var newWidth = $(window).width();
 		current = (current / windowWidth) * newWidth;
 		windowWidth = newWidth;
 
+		// yeah, weird right?
 		scrubMap(current);
 		$("#scrubber").css("left", current - 5);
 	});
 
+	// init in center
 	$("#scrubber").css("left", current - 5);
 });
