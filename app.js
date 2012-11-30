@@ -102,7 +102,8 @@ $(function() {
 	actualMap.add(po.hash());
 
 	var scrubbing = false,
-		current = $(window).width() / 2;
+		windowWidth = $(window).width(),
+		current = windowWidth / 2;
 
 	$("#scrubber").draggable({ 
 		axis: 'x',
@@ -110,6 +111,16 @@ $(function() {
 			current = e.pageX;
 			scrubMap(current);
 		} 
+	});
+
+	$(window).resize(function(e) {
+		// update position
+		var newWidth = $(window).width();
+		current = (current / windowWidth) * newWidth;
+		windowWidth = newWidth;
+
+		scrubMap(current);
+		$("#scrubber").css("left", current - 5);
 	});
 
 	$("#scrubber").css("left", current - 5);

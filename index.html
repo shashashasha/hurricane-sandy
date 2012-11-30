@@ -2,16 +2,29 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <title>The Model and the Result</title>
+        <title>The Prediction and The Result</title>
         <link rel="stylesheet" type="text/css" href="css/style_page.css" />
         <script type="text/javascript" src="lib/polymaps.min.js"></script>
         <script type="text/javascript" src="lib/jquery.min.js"></script>
         <script type="text/javascript" src="lib/jquery-ui-1.9.2.custom.min.js"></script>
     </head>
     <body>
-        <div id="root">
+        <div id="header" class="box-shadow">
+            A small remix of <a href="http://datanews.wnyc.org/">WNYC's</a> wonderful <a href="http://project.wnyc.org/flooding-sandy-new/index.html">Flooding & Flood Zones</a> piece, showing predicted surge zones (<a href="http://www.iwr.usace.army.mil/nhp/HESfacts.cfml?pgid=107">NJ</a>, <a href="http://www.iwr.usace.army.mil/nhp/HESfacts.cfml?pgid=110">NY</a>, <a href="https://nycopendata.socrata.com/Public-Safety/Hurricane-Evacuation-Zones/7rse-pfp9">NYC</a>) on the left and FEMA's <a href="http://fema.maps.arcgis.com/home/item.html?id=307dd522499d4a44a33d7296a5da5ea0">Hurricane Sandy Impact Analysis</a> on the right. All credit goes to them, I just made this to <a href="blog.postarchitectural.com">think through some things</a>.
+        </div>
+        <div id="maps">
             <div id="map-prediction" class="map-container">
                 <div id="left-title" class="title text-shadow">Prediction</div>
+
+                <div id="info" class="box-shadow">
+                    <div class="info-text">Sandy was downgraded from Category 1 before landfall.</div>
+                    <div id="legend">
+                        <span class="legend-block cat1">Cat. 1</span>
+                        <span class="legend-block cat2">Cat. 2</span>
+                        <span class="legend-block cat3">Cat. 3</span>
+                        <span class="legend-block cat4">Cat. 4</span>
+                    </div>
+                </div>
             </div>
             <div id="map-actual" class="map-container">
                 <div id="right-title" class="title text-shadow">Result</div>
